@@ -39,4 +39,7 @@ def on_press(key):
             print("Hai premuto INVIO!")
     time.sleep(1)
 ```
-
+---
+## To Do
+- [x] move per seconds
+- [ ] move per distance
