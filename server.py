@@ -18,10 +18,12 @@ s.listen(N)
 ab = AlphaBot.AlphaBot()
 
 actions = {
-    'w' : ab.forward,
-    'a' : ab.left,
-    's' : ab.backward,
-    'd' : ab.right
+    'w' : lambda : ab.forward(1),
+    'a' : lambda : ab.left(1),
+    's' : lambda : ab.backward(1),
+    'd' : lambda : ab.right(1),
+    'e' : lambda : ab.changeSpeed(10, 10),
+    'q' : lambda : ab.changeSpeed(-10, -10)
     }
 
 connection, address = s.accept()

@@ -1,10 +1,11 @@
 import socket
+import time
 from pynput import keyboard
 #Python DOCS
 
 # 0.0.0.0 indirizzo ip speciale, anche detto This Host
 # ADDRESS = ("0.0.0.0", 5000)
-SERVER_ADDRESS = ("192.168.1.57",6969)
+SERVER_ADDRESS = ("192.168.1.116",6969)
 BUFFER = 4096
                                 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -27,11 +28,18 @@ def on_press(key):
         elif key.char == 'd':
             print("DESTRA")
             s.send('d'.encode())
+        elif key.char == 'q':
+            print("+ velocitaaa")
+            s.send('q'.encode())
+        elif key.char == 'e':
+            print("- velocitaaa")
+            s.send('e'.encode())
     except AttributeError:
         # Per tasti speciali (es. invio, frecce, ecc.)
         if key == keyboard.Key.enter:
             s.send('Error'.encode())
             print("Hai premuto INVIO!")
+    time.sleep(1)
 
 
 
