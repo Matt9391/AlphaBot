@@ -7,6 +7,8 @@ Development of AlphaBot using Python and TCP connection
 - **'a'** : move left
 - **'s'** : move backward
 - **'d'** : move right
+- **'e'** : increase speed
+- **'q'** : decrease speed
 
 > These commands are sent to the Alphabot through client-server connection in TCP
 
