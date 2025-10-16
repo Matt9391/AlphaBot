@@ -1,5 +1,6 @@
 import socket
 import AlphaBot
+import GestoreSensori 
 
 #Python DOCS
 
@@ -16,6 +17,8 @@ N = 1
 s.listen(N)
 
 ab = AlphaBot.AlphaBot()
+gs = GestoreSensori.GestoreSensori(ab)
+gs.start()
 
 actions = {
     'w' : lambda : ab.forward(1),
@@ -41,7 +44,7 @@ while True:
         state = act
 
     #invia messaggi al client
-    connection.send("skibidi".encode())
+    # connection.send("skibidi".encode())
 
 s.close()
 

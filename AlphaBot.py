@@ -13,6 +13,9 @@ class AlphaBot(object):
   
 		self.moving = False
   
+		self.DR = 16
+		self.DL = 19
+  
 		self.speed = [50, 50]
   
 		GPIO.setmode(GPIO.BCM)
@@ -23,11 +26,20 @@ class AlphaBot(object):
 		GPIO.setup(self.IN4,GPIO.OUT)
 		GPIO.setup(self.ENA,GPIO.OUT)
 		GPIO.setup(self.ENB,GPIO.OUT)
+  
+		GPIO.setup(self.DR, GPIO.IN, GPIO.PUD_UP)
+		GPIO.setup(self.DL, GPIO.IN, GPIO.PUD_UP)
+  
+		# GPIO.input(DR)
+  
 		self.PWMA = GPIO.PWM(self.ENA,500)
 		self.PWMB = GPIO.PWM(self.ENB,500)
 		self.PWMA.start(50)
 		self.PWMB.start(50)
 		self.stop()
+  
+	def getSensors(self):
+		return (GPIO.input(self.DR),GPIO.input(self.DL)) 
 
 	def forward(self, seconds):
 		if(self.moving):

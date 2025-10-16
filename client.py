@@ -12,10 +12,14 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 s.connect(SERVER_ADDRESS)
 
-
+lastChar = '-'
 
 def on_press(key):
+    global lastChar
     try:
+        if key.char == lastChar:
+            return
+        lastChar = key.char
         if key.char == 'w':
             print("AVANZA")
             s.send('w'.encode())
@@ -42,8 +46,10 @@ def on_press(key):
     # time.sleep(1)
 
 def on_release(key):
+    global lastChar
     try:
         if key.char != 'u':
+            lastChar = "-"
             print("Tasto rilasciato")
             s.send("stop".encode())
     except AttributeError:
