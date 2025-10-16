@@ -13,8 +13,8 @@ class AlphaBot(object):
   
 		self.moving = False
   
-		self.DR = 16
 		self.DL = 19
+		self.DR = 16
   
 		self.speed = [50, 50]
   
@@ -27,8 +27,9 @@ class AlphaBot(object):
 		GPIO.setup(self.ENA,GPIO.OUT)
 		GPIO.setup(self.ENB,GPIO.OUT)
   
-		GPIO.setup(self.DR, GPIO.IN, GPIO.PUD_UP)
+		# Sesonri Left e Right di luce
 		GPIO.setup(self.DL, GPIO.IN, GPIO.PUD_UP)
+		GPIO.setup(self.DR, GPIO.IN, GPIO.PUD_UP)
   
 		# GPIO.input(DR)
   
@@ -39,9 +40,17 @@ class AlphaBot(object):
 		self.stop()
   
 	def getSensors(self):
-		return (GPIO.input(self.DR),GPIO.input(self.DL)) 
+		return (GPIO.input(self.DL),GPIO.input(self.DR)) 
+	
+	def stop(self):
+		print("im STOPPING")
+		GPIO.output(self.IN1,GPIO.LOW)
+		GPIO.output(self.IN2,GPIO.LOW)
+		GPIO.output(self.IN3,GPIO.LOW)
+		GPIO.output(self.IN4,GPIO.LOW)
+		self.moving = False
 
-	def forward(self, seconds):
+	def forward(self, seconds = 0):
 		if(self.moving):
 			return
 		print("im moving forward")
@@ -54,15 +63,8 @@ class AlphaBot(object):
   		# time.sleep(seconds)
 		# self.stop()
 
-	def stop(self):
-		print("im STOPPING")
-		GPIO.output(self.IN1,GPIO.LOW)
-		GPIO.output(self.IN2,GPIO.LOW)
-		GPIO.output(self.IN3,GPIO.LOW)
-		GPIO.output(self.IN4,GPIO.LOW)
-		self.moving = False
 
-	def backward(self, seconds):
+	def backward(self, seconds = 0):
 		if(self.moving):
 			return
 		print("im moving backward")
@@ -75,7 +77,7 @@ class AlphaBot(object):
 		# time.sleep(seconds)
 		# self.stop()
 
-	def left(self, seconds):
+	def left(self, seconds = 0):
 		if(self.moving):
 			return
 		print("im moving left")
@@ -88,7 +90,7 @@ class AlphaBot(object):
   		# time.sleep(seconds)
 		# self.stop()
 
-	def right(self, seconds):
+	def right(self, seconds = 0):
 		if(self.moving):
 			return
 		print("im moving right")

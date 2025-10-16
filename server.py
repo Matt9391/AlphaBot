@@ -20,11 +20,12 @@ ab = AlphaBot.AlphaBot()
 gs = GestoreSensori.GestoreSensori(ab)
 gs.start()
 
+
 actions = {
-    'w' : lambda : ab.forward(1),
-    'a' : lambda : ab.left(1),
-    's' : lambda : ab.backward(1),
-    'd' : lambda : ab.right(1),
+    'w' : lambda : ab.forward(),
+    'a' : lambda : ab.left(),
+    's' : lambda : ab.backward(),
+    'd' : lambda : ab.right(),
     'e' : lambda : ab.changeSpeed(10, 10),
     'q' : lambda : ab.changeSpeed(-10, -10),
     'stop' : lambda : ab.stop()
