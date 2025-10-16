@@ -23,8 +23,11 @@ actions = {
     's' : lambda : ab.backward(1),
     'd' : lambda : ab.right(1),
     'e' : lambda : ab.changeSpeed(10, 10),
-    'q' : lambda : ab.changeSpeed(-10, -10)
+    'q' : lambda : ab.changeSpeed(-10, -10),
+    'stop' : lambda : ab.stop()
     }
+
+state = "stop"
 
 connection, address = s.accept()
 while True:
@@ -33,7 +36,9 @@ while True:
     data = connection.recv(BUFFER)
     act = data.decode()
 
-    actions[act]()
+    if act in actions and act != state:
+        actions[act]()
+        state = act
 
     #invia messaggi al client
     connection.send("skibidi".encode())

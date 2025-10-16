@@ -11,6 +11,8 @@ class AlphaBot(object):
 		self.ENA = ena
 		self.ENB = enb
   
+		self.moving = False
+  
 		self.speed = [50, 50]
   
 		GPIO.setmode(GPIO.BCM)
@@ -28,14 +30,17 @@ class AlphaBot(object):
 		self.stop()
 
 	def forward(self, seconds):
+		if(self.moving):
+			return
 		print("im moving forward")
 		# GPIO.output(self.IN1,GPIO.HIGH)
 		# GPIO.output(self.IN2,GPIO.LOW)
 		# GPIO.output(self.IN3,GPIO.LOW)
 		# GPIO.output(self.IN4,GPIO.HIGH)
 		self.setMotor(-self.speed[0], self.speed[1])
-		time.sleep(seconds)
-		self.stop()
+		self.moving = True
+  		# time.sleep(seconds)
+		# self.stop()
 
 	def stop(self):
 		print("im STOPPING")
@@ -43,36 +48,46 @@ class AlphaBot(object):
 		GPIO.output(self.IN2,GPIO.LOW)
 		GPIO.output(self.IN3,GPIO.LOW)
 		GPIO.output(self.IN4,GPIO.LOW)
+		self.moving = False
 
 	def backward(self, seconds):
+		if(self.moving):
+			return
 		print("im moving backward")
 		# GPIO.output(self.IN1,GPIO.LOW)
 		# GPIO.output(self.IN2,GPIO.HIGH)
 		# GPIO.output(self.IN3,GPIO.HIGH)
 		# GPIO.output(self.IN4,GPIO.LOW)
 		self.setMotor(self.speed[0], -self.speed[1])
-		time.sleep(seconds)
-		self.stop()
+		self.moving = True
+		# time.sleep(seconds)
+		# self.stop()
 
 	def left(self, seconds):
+		if(self.moving):
+			return
 		print("im moving left")
 		# GPIO.output(self.IN1,GPIO.LOW)
 		# GPIO.output(self.IN2,GPIO.LOW)
 		# GPIO.output(self.IN3,GPIO.LOW)
 		# GPIO.output(self.IN4,GPIO.HIGH)
 		self.setMotor(-self.speed[0], -self.speed[1])
-		time.sleep(seconds)
-		self.stop()
+		self.moving = True
+  		# time.sleep(seconds)
+		# self.stop()
 
 	def right(self, seconds):
+		if(self.moving):
+			return
 		print("im moving right")
 		# GPIO.output(self.IN1,GPIO.HIGH)
 		# GPIO.output(self.IN2,GPIO.LOW)
 		# GPIO.output(self.IN3,GPIO.LOW)
 		# GPIO.output(self.IN4,GPIO.LOW)
 		self.setMotor(self.speed[0], self.speed[1])
-		time.sleep(seconds)
-		self.stop()
+		self.moving = True
+		# time.sleep(seconds)
+		# self.stop()
 		
 	def setPWMA(self,value):
 		self.PWMA.ChangeDutyCycle(value)

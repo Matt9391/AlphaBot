@@ -39,12 +39,21 @@ def on_press(key):
         if key == keyboard.Key.enter:
             s.send('Error'.encode())
             print("Hai premuto INVIO!")
-    time.sleep(1)
+    # time.sleep(1)
 
+def on_release(key):
+    try:
+        if key.char != 'u':
+            print("Tasto rilasciato")
+            s.send("stop".encode())
+    except AttributeError:
+        # Per tasti speciali (es. invio, frecce, ecc.)
+        return
+    
 
 
 while True:
-    with keyboard.Listener(on_press=on_press) as listener:
+    with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
         listener.join()
 
     data = s.recv(BUFFER)
