@@ -5,7 +5,7 @@ from pynput import keyboard
 
 # 0.0.0.0 indirizzo ip speciale, anche detto This Host
 # ADDRESS = ("0.0.0.0", 5000)
-SERVER_ADDRESS = ("192.168.1.116",6969)
+SERVER_ADDRESS = ("192.168.1.119",6969)
 BUFFER = 4096
                                 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -38,6 +38,9 @@ def on_press(key):
         elif key.char == 'e':
             print("- velocitaaa")
             s.send('e'.encode())
+        elif key.char == 'r':
+            print("squareee")
+            s.send('r'.encode())
     except AttributeError:
         # Per tasti speciali (es. invio, frecce, ecc.)
         if key == keyboard.Key.enter:

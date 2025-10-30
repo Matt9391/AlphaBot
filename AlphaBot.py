@@ -50,6 +50,29 @@ class AlphaBot(object):
 		GPIO.output(self.IN4,GPIO.LOW)
 		self.moving = False
 
+
+	def forwardTime(self, seconds = 0):
+		print("im moving forward")
+		self.setMotor(-self.speed[0], self.speed[1])
+		time.sleep(seconds)
+		self.stop()
+	
+	def backwardTime(self, seconds = 0):
+		print("im moving forward")
+		self.setMotor(self.speed[0], -self.speed[1])
+		time.sleep(seconds)
+		self.stop()
+	def leftTime(self, seconds = 0):
+		print("im moving forward")
+		self.setMotor(-self.speed[0], -self.speed[1])
+		time.sleep(seconds)
+		self.stop()
+	def rightTime(self, seconds = 0):
+		print("im moving forward")
+		self.setMotor(self.speed[0], self.speed[1])
+		time.sleep(seconds)
+		self.stop()
+
 	def forward(self, seconds = 0):
 		if(self.moving):
 			return
