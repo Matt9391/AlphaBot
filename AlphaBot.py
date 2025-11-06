@@ -12,6 +12,7 @@ class AlphaBot(object):
 		self.ENB = enb
   
 		self.moving = False
+		self.canMoveForward = True
   
 		self.DL = 19
 		self.DR = 16
@@ -50,8 +51,10 @@ class AlphaBot(object):
 		GPIO.output(self.IN4,GPIO.LOW)
 		self.moving = False
 
-
 	def forwardTime(self, seconds = 0):
+		if not self.canMoveForward:
+			self.stop()
+			return
 		print("im moving forward")
 		self.setMotor(-self.speed[0], self.speed[1])
 		time.sleep(seconds)
@@ -62,11 +65,13 @@ class AlphaBot(object):
 		self.setMotor(self.speed[0], -self.speed[1])
 		time.sleep(seconds)
 		self.stop()
+
 	def leftTime(self, seconds = 0):
 		print("im moving forward")
 		self.setMotor(-self.speed[0], -self.speed[1])
 		time.sleep(seconds)
 		self.stop()
+
 	def rightTime(self, seconds = 0):
 		print("im moving forward")
 		self.setMotor(self.speed[0], self.speed[1])
@@ -74,7 +79,11 @@ class AlphaBot(object):
 		self.stop()
 
 	def forward(self, seconds = 0):
-		if(self.moving):
+		if not self.canMoveForward:
+			self.stop()
+			return
+		
+		if self.moving:
 			return
 		print("im moving forward")
 		# GPIO.output(self.IN1,GPIO.HIGH)
@@ -150,9 +159,9 @@ class AlphaBot(object):
 			GPIO.output(self.IN4,GPIO.HIGH)
 			self.PWMB.ChangeDutyCycle(0 - left)
 	
-	def changeSpeed(self, left, right):
-		self.speed[0] += left 
-		self.speed[1] += right
+	def changeSpeed(self, speed):
+		self.speed[0] += speed 
+		self.speed[1] += speed
   
 		self.speed[0] = max(0, min(100, self.speed[0]))
 		self.speed[1] = max(0, min(100, self.speed[1]))

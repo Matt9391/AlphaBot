@@ -1,7 +1,7 @@
 import sqlite3
 import socket
 import AlphaBot
-# import GestoreSensori 
+import GestoreSensori 
 
 def requestDB(dbName, act):
     con = sqlite3.connect(dbName)
@@ -29,10 +29,10 @@ N = 1
 s.listen(N)
 
 ab = AlphaBot.AlphaBot()
-# gs = GestoreSensori.GestoreSensori(ab)
-# gs.start()
+gs = GestoreSensori.GestoreSensori(ab)
+gs.start()
 
-actions = ["w", "a", "s", "d", "stop", "r"]
+actions = ["w", "a", "s", "d", "q", "e", "stop", "r"]
 # actions = {
 #     'w' : lambda : ab.forward(),
 #     'a' : lambda : ab.left(),
@@ -52,18 +52,20 @@ while True:
     data = connection.recv(BUFFER)
     act = data.decode()
 
-    if act in actions and act != state:
+    print(f"CanMoveForward: {ab.canMoveForward}\n")
+
+    if (act in actions) and (act != state):
         nextActions = requestDB("robot.db", act)
         for i in range(0, len(nextActions), 2):
             nact = nextActions[i]
             params = nextActions[i+1]
             if(params == "null"):
-                # eval(nact)
                 getattr(ab, nact)()  
             else:
                 getattr(ab,nact)(float(params))
-
         state = act
+    
+    
 
     #invia messaggi al client
     # connection.send("skibidi".encode())
