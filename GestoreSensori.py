@@ -22,5 +22,3 @@ class GestoreSensori(th.Thread):
             if not self.ab.canMoveForward:
                 print("MANNAGGIA A QUEL STOP")
                 self.ab.backwardTime(0.2)
-
-                
